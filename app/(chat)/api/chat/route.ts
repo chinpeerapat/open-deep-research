@@ -56,7 +56,7 @@ const allTools: AllowedTools[] = [...firecrawlTools, 'deepResearch'];
 
 const app = new FirecrawlApp({
   apiKey: process.env.FIRECRAWL_API_KEY || '',
-  url: process.env.FIRECRAWL_URL || 'https://api.firecrawl.dev',
+  apiUrl: process.env.FIRECRAWL_URL || 'https://api.firecrawl.dev',
 });
 
 const reasoningModel = customModel(process.env.REASONING_MODEL || 'o1-mini', true);
