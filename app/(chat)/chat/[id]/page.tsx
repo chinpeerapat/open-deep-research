@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { auth } from '@/app/(auth)/auth';
 import { Chat } from '@/components/chat';
-import { DEFAULT_MODEL_NAME, models } from '@/lib/ai/models';
+import { DEFAULT_MODEL_NAME, DEFAULT_REASONING_MODEL_NAME, models, reasoningModels } from '@/lib/ai/models';
 import { getChatById, getMessagesByChatId } from '@/lib/db/queries';
 import { convertToUIMessages } from '@/lib/utils';
 import { DataStreamHandler } from '@/components/data-stream-handler';
@@ -39,12 +39,18 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     models.find((model) => model.id === modelIdFromCookie)?.id ||
     DEFAULT_MODEL_NAME;
 
+  const reasoningModelIdFromCookie = cookieStore.get('reasoning-model-id')?.value;
+  const reasoningModelId =
+    reasoningModels.find((model) => model.id === reasoningModelIdFromCookie)?.id ||
+    DEFAULT_REASONING_MODEL_NAME;
+
   return (
     <>
       <Chat
         id={chat.id}
         initialMessages={convertToUIMessages(messagesFromDb)}
         selectedModelId={selectedModelId}
+        selectedReasoningModelId={reasoningModelId}
         selectedVisibilityType={chat.visibility}
         isReadonly={session?.user?.id !== chat.userId}
       />

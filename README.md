@@ -4,7 +4,7 @@ An Open-Source clone of Open AI's Deep Research experiment. Instead of using a f
 
 Check out the demo [here](https://x.com/nickscamara_/status/1886459999905521912)
 
-![Open Deep Research Hero](public/open-deep-researched-pic.png)
+![Open Deep Research Hero](public/open-hero.png)
 
 ## Features
 
@@ -33,11 +33,21 @@ This template ships with OpenAI `gpt-4o` as the default. However, with the [AI S
 
 This repo is compatible with [OpenRouter](https://openrouter.ai/) and [OpenAI](https://openai.com/). To use OpenRouter, you need to set the `OPENROUTER_API_KEY` environment variable.
 
+## Function Max Duration
+
+By default, the function timeout is set to 300 seconds (5 minutes). If you're using Vercel's Hobby tier, you'll need to reduce this to 60 seconds. You can adjust this by changing the `MAX_DURATION` environment variable in your `.env` file:
+
+```bash
+MAX_DURATION=60
+```
+
+Learn more about it [here](https://vercel.com/docs/functions/configuring-functions/duration#duration-limits)
+
 ## Deploy Your Own
 
 You can deploy your own version of the Next.js AI Chatbot to Vercel with one click:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fnickscamara%2Fopen-deep-research&env=AUTH_SECRET,OPENAI_API_KEY,OPENROUTER_API_KEY,FIRECRAWL_API_KEY&envDescription=Learn%20more%20about%20how%20to%20get%20the%20API%20Keys%20for%20the%20application&envLink=https%3A%2F%2Fgithub.com%2Fvercel%2Fai-chatbot%2Fblob%2Fmain%2F.env.example&demo-title=AI%20Chatbot&demo-description=An%20Open-Source%20AI%20Chatbot%20Template%20Built%20With%20Next.js%20and%20the%20AI%20SDK%20by%20Vercel.&demo-url=https%3A%2F%2Fchat.vercel.ai&stores=[{%22type%22:%22postgres%22},{%22type%22:%22blob%22}])
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fnickscamara%2Fopen-deep-research&env=AUTH_SECRET,OPENAI_API_KEY,OPENROUTER_API_KEY,FIRECRAWL_API_KEY,BLOB_READ_WRITE_TOKEN,POSTGRES_URL,UPSTASH_REDIS_REST_URL,UPSTASH_REDIS_REST_TOKEN,REASONING_MODEL,BYPASS_JSON_VALIDATION,TOGETHER_API_KEY,MAX_DURATION&envDescription=Learn%20more%20about%20how%20to%20get%20the%20API%20Keys%20for%20the%20application&envLink=https%3A%2F%2Fgithub.com%2Fvercel%2Fai-chatbot%2Fblob%2Fmain%2F.env.example&demo-title=AI%20Chatbot&demo-description=An%20Open-Source%20AI%20Chatbot%20Template%20Built%20With%20Next.js%20and%20the%20AI%20SDK%20by%20Vercel.&demo-url=https%3A%2F%2Fchat.vercel.ai&stores=[{%22type%22:%22postgres%22},{%22type%22:%22blob%22}])
 
 ## Running locally
 
@@ -72,11 +82,6 @@ Your app template should now be running on [localhost:3000](http://localhost:300
 If you want to use a model other than the default, you will need to install the dependencies for that model.
 
 
-DeepSeek:
-```bash
-pnpm add @ai-sdk/deepseek
-```
-
 TogetherAI's Deepseek:
 ```bash
 pnpm add @ai-sdk/togetherai
@@ -94,7 +99,6 @@ The application uses a separate model for reasoning tasks (like research analysi
 |----------|--------|-------|
 | OpenAI | `gpt-4o`, `o1`, `o3-mini` | Native JSON schema support |
 | TogetherAI | `deepseek-ai/DeepSeek-R1` | Requires `BYPASS_JSON_VALIDATION=true` |
-| Deepseek | `deepseek-reasoner` | Requires `BYPASS_JSON_VALIDATION=true` |
 
 ### Important Notes
 
@@ -117,7 +121,7 @@ The application uses a separate model for reasoning tasks (like research analysi
 Add to your `.env` file:
 ```bash
 # Choose one of: deepseek-reasoner, deepseek-ai/DeepSeek-R1
-REASONING_MODEL=deepseek-reasoner
+REASONING_MODEL=deepseek-ai/DeepSeek-R1
 
 # Required when using models that don't support JSON schema (like deepseek-reasoner)
 BYPASS_JSON_VALIDATION=true

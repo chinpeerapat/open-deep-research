@@ -23,12 +23,14 @@ interface DeepResearchProps {
     title: string;
     relevance: number;
   }>;
+  deepResearch?: boolean;
 }
 
 export function DeepResearch({
   isLoading,
   activity = [],
   sources = [],
+  deepResearch = true
 }: DeepResearchProps) {
   if (activity.length === 0 && sources.length === 0) {
     return null;
@@ -36,11 +38,11 @@ export function DeepResearch({
 
   return (
     <div className="fixed right-4 top-20 w-80 bg-background border rounded-lg shadow-lg p-4 max-h-[80vh] flex flex-col overflow-y-scroll">
-      <Tabs defaultValue="activity" className="flex flex-col h-full">
+      <Tabs defaultValue={deepResearch ? "activity" : "sources"} className="flex flex-col h-full">
         <TabsList className="w-full">
-          <TabsTrigger value="activity" className="flex-1">
+          {deepResearch && <TabsTrigger value="activity" className="flex-1">
             Activity
-          </TabsTrigger>
+          </TabsTrigger>}
           <TabsTrigger value="sources" className="flex-1">
             Sources
           </TabsTrigger>
